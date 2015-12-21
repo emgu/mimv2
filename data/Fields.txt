@@ -1,0 +1,57 @@
+mim_fields
+fieldId
+name
+description
+cardNum
+0
+Tavern
+TODO
+0
+1
+Plain
+Take 1 adventure card.
+1
+2
+Wild Forrest
+Take 1 adventure card.
+1
+3
+Hills
+Take 1 adventure card.
+1
+4
+Farmland
+Take 1 adventure card.
+1
+5
+Town
+Take 2 adventure card.
+2
+6
+Rocks
+Take 1 adventure card.
+1
+7
+Chapel
+Take 2 adventure card.
+2
+8
+Guard
+Take 1 adventure card.
+1
+9
+Cementary
+Take 2 adventure card.
+2
+10
+Village
+Take 2 adventure card.
+2
+11
+Forrest
+Take 1 adventure card.
+1
+12
+Ruins
+Take 2 adventure card.
+2

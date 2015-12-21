@@ -1,0 +1,9 @@
+mim_mapsList
+mapId
+mapName
+mapDBName
+mapFieldsDBName
+0
+Main Map
+mim_mainMap
+mim_fields

@@ -1,0 +1,5 @@
+jdbc:mysql://localhost:3306/
+mim
+mimpass
+mim_db
+data/Fields.txt

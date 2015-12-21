@@ -1,0 +1,25 @@
+mim_adventurecards
+advCardId
+advCardName
+advCardDescription
+advCardType
+0
+Thief
+You were robbed! \n\rYou lose 1 gold.
+Event
+1
+Gold
+You have found gold! \n\rIncrease your gold by 1.
+Event
+2
+Wisdom book
+You have found some old wisdom book \n\rIncrease your inteligence by 1.
+Event
+3
+Sword
+You have found sword \n\rIncrease your strength by 1 during fight.
+Object
+4
+Dragon
+You were attacked by Dragon\n\rYou lose 1 point of life regardless of your strength.
+Object
