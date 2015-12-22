@@ -3,10 +3,10 @@ package characters;
 import java.util.Random;
 
 import cards.*;
-import maps.*;
+import iohandling.IO;
 
 
-public class Character implements Creature{
+public abstract class Character implements Creature{
 	protected int strength;
 	protected int inteligence;
 	protected int gold;
@@ -14,52 +14,29 @@ public class Character implements Creature{
 	public String profession;
 	
 	public static  Random randGen = new Random();
-	private static final int charNum = 3;
+
 	public int startPosition;
 	
-	Character(){
-		this.strength = 3;
-		this.inteligence = 3;
-		this.gold = 2;
-		this.life = 4;
-		this.profession = "No profession";
-		
-		this.startPosition = 0;
-	}
+
 	public void die() {
 		this.life = 0;
-			System.out.println("Hero: " + this.profession + " dies...");
+
 		
 	}
 
 	public void printCard() {
-		System.out.println("<--- CHARACTER CARD --->");
-		System.out.println("Character profession: " + this.profession);
-		System.out.println("Character strength: " + this.strength);
-		System.out.println("Character intelligence: " + this.inteligence);
-		System.out.println("Character gold: " + this.gold);
-		System.out.println("Character life: " + this.life);
-		System.out.println("<---------------------->");
+		IO.display("<--- CHARACTER CARD --->");
+		IO.display("Character profession: " + this.profession);
+		IO.display("Character strength: " + this.strength);
+		IO.display("Character intelligence: " + this.inteligence);
+		IO.display("Character gold: " + this.gold);
+		IO.display("Character life: " + this.life);
 	}
 	
-	static public Card draw() {
-		Character newChar;
-		Random generator = new Random();
-		int ran = generator.nextInt(charNum)+1;
-		System.out.println(ran);
-		switch (ran){
-			case 1 : newChar = new Warrior();
-			break;
-			case 2 : newChar = new Wizard();
-			break;
-			case 3 : newChar = new Elf();
-			break;
-			default : newChar = new Character();
-			break;
-		}
-		return newChar;
+	public void fight(Card enemy){
+		
 	}
-
+	
 	public int move(int from, boolean ifleft){
 		if(ifleft){return from - rollOfDice();
 		}else{return from + rollOfDice();
@@ -74,20 +51,35 @@ public class Character implements Creature{
 		
 	//	int cardNum = MapHandler.explore(mapId, fieldId);
 		int cardId = randGen.nextInt(CardHandler.getAdvCardAmounh());
-		AdventureCard card;// = new Dragon(CardHandler.getCardInfo("advCardName", cardId), CardHandler.getCardInfo("advCardDescription", cardId));
+		AdventureCard card;
 		switch (cardId){
-			case 0 : card = new Thief(CardHandler.getCardInfo("advCardName", cardId), CardHandler.getCardInfo("advCardDescription", cardId));
+			case 0 : card = new Thief(	CardHandler.getCardInfo("advCardName", cardId),
+										CardHandler.getCardInfo("advCardDescription", cardId),
+										CardHandler.getCardInfo("advCardName", cardId)
+										);
 			break;
-			case 1 : card = new Gold(CardHandler.getCardInfo("advCardName", cardId), CardHandler.getCardInfo("advCardDescription", cardId));
+			case 1 : card = new Gold(	CardHandler.getCardInfo("advCardName", cardId),
+										CardHandler.getCardInfo("advCardDescription", cardId),
+										CardHandler.getCardInfo("advCardType", cardId)
+									);
 			break;
-			case 2 : card = new WisdomBook(CardHandler.getCardInfo("advCardName", cardId), CardHandler.getCardInfo("advCardDescription", cardId));
+			case 2 : card = new WisdomBook(	CardHandler.getCardInfo("advCardName", cardId),
+											CardHandler.getCardInfo("advCardDescription", cardId),
+											CardHandler.getCardInfo("advCardType", cardId)
+										);
 			break;
-			case 3 : card = new Sword(CardHandler.getCardInfo("advCardName", cardId), CardHandler.getCardInfo("advCardDescription", cardId));
+			case 3 : card = new Sword(		CardHandler.getCardInfo("advCardName", cardId),
+											CardHandler.getCardInfo("advCardDescription", cardId),
+											CardHandler.getCardInfo("advCardType", cardId)
+									);
 			break;
-			case 4 : card = new Dragon(CardHandler.getCardInfo("advCardName", cardId), CardHandler.getCardInfo("advCardDescription", cardId));
+			case 4 : card = new Dragon(		CardHandler.getCardInfo("advCardName", cardId),
+											CardHandler.getCardInfo("advCardDescription", cardId),
+											CardHandler.getCardInfo("advCardType", cardId)
+									);
 			break;
 			default : card = null;
-					System.out.println("Nothing happend.");
+					IO.display("Nothing happend.");
 					return;
 		}
 		card.printCard();

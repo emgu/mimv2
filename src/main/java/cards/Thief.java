@@ -4,8 +4,8 @@ import characters.Character;
 
 public class Thief extends AdventureCard{
 
-	public Thief(String n, String d){
-		super(n, d);
+	public Thief(String n, String d, String t){
+		super(n, d,t);
 	};
 	
 	public void die() {

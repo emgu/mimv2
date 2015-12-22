@@ -20,7 +20,7 @@ public class MapHandler {
 		try {
 			ResultSet res = DB.getField(mapId, fieldId);
 			res.first();
-			return res.getString("name");
+			return res.getString("name") + "(" + fieldId + ")";
 				
 		} catch (SQLException e) {
 			e.printStackTrace();

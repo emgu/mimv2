@@ -4,8 +4,8 @@ import characters.Character;
 
 public class Gold extends AdventureCard{
 
-	public Gold(String n, String d){
-		super(n, d);
+	public Gold(String n, String d, String t){
+		super(n, d, t);
 	};
 	@Override
 	public void affect(Character character) {

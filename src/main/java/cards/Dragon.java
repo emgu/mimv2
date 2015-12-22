@@ -5,8 +5,8 @@ import characters.Character;
 
 public class Dragon extends AdventureCard{
 
-	public Dragon(String n, String d){
-		super(n, d);
+	public Dragon(String n, String d, String t){
+		super(n, d, t);
 	};
 	
 	public void die() {

@@ -4,8 +4,8 @@ import characters.Character;
 
 public class WisdomBook extends AdventureCard{
 
-	public WisdomBook(String n, String d){
-		super(n, d);
+	public WisdomBook(String n, String d, String t){
+		super(n, d, t);
 	};
 	
 	public void die() {

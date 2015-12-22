@@ -4,6 +4,7 @@ import java.util.*;
 
 import cards.*;
 import data.*;
+import iohandling.IO;
 import maps.*;
 import players.*;
 
@@ -24,17 +25,11 @@ public class Main {
 		DBHandler.createMap("data/MainMap.txt");
 		DBHandler.createAdventureCard("data/AdventureCards.txt");
 		
-	//	MapHandler.printMap(0);
 		
 	}
 	
 // IO controll functions:	
-	private static void write(int toWrite) {
-		System.out.print(toWrite);
-	}
-	private static void write(String toWrite) {
-		System.out.print("\n" + toWrite);
-	}
+
 	private static int readInt() {
 		try{
 			return Integer.parseInt(scan.nextLine());
@@ -80,17 +75,14 @@ public class Main {
 
 	private static void start() {
 		while (PNUM < 1 || PNUM > 4){
-			write("Write players number (1-4):");
-			PNUM = readInt();
+			PNUM = IO.getInt("Write players number (1-4):");
 		}
 		
-		write("Player number is: " + PNUM);
-		write("");
+		IO.display("Player number is: " + PNUM);
 		
 		for(int h = 1; h <= PNUM; h++){
-			write("Player number " + h);
-			write("Write player number " + h + " name: ");
-			PlayerList.addPlayer(readString());
+			IO.display("Player number " + h);
+			PlayerList.addPlayer(IO.getString("Write player number " + h + " name: "));
 		}
 		
 		for(Player p : PlayerList.getList()){
