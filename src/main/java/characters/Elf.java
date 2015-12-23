@@ -5,9 +5,8 @@ import iohandling.IO;
 public class Elf extends Character{
 
 	public Elf(){
-	//	super();
 		this.strength = 3;
-		this.inteligence = 3;
+		this.craft = 3;
 		this.gold = 2;
 		this.life = 4;
 		
@@ -27,8 +26,8 @@ public class Elf extends Character{
 	public int move(int from, boolean ifleft){
 		int roll = rollOfDice();
 		
-		String choise = IO.getString("You move on " + roll + " fields.\n\rAdd 1? (Y/n)");
-		if(choise.equals("Y"))roll++;
+		String choise = IO.getString("You move on " + roll + " fields.\n\rAdd 1? (press Y or y for yes):");
+		if(choise.equals("Y") || choise.equals("y")) roll++;
 		IO.display("You move on " + roll + " fields.");
 
 		if(ifleft){return from - roll;

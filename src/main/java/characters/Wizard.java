@@ -6,7 +6,7 @@ public class Wizard extends Character{
 		
 	public Wizard(){
 		this.strength = 2;
-		this.inteligence = 4;
+		this.craft = 4;
 		this.gold = 2;
 		this.life = 4;
 		
