@@ -114,7 +114,7 @@ public class DataBase {
 		try {
 
 			result = statement.executeQuery("SELECT * "
-					+ "FROM mim_adventurecards AS ac "
+					+ "FROM mim_adventureCards AS ac "
 					+ "WHERE ac.advCardId = " + cardId);
 			return result;
 		} catch (SQLException e) {
@@ -126,7 +126,7 @@ public class DataBase {
 	public int advCardAmount() {
 		try {
 			result = statement.executeQuery("SELECT COUNT(*) "
-					+ "FROM mim_adventurecards");
+					+ "FROM mim_adventureCards");
 			result.first();
 			return result.getInt("COUNT(*)");
 		} catch (SQLException e) {
