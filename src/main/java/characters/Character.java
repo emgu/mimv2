@@ -22,7 +22,7 @@ public abstract class Character implements Creature{
 		Random generator = new Random();
 		int charNum = 3; /// iloœæ charakterów
 		int ran = generator.nextInt(charNum )+1;
-		System.out.println(ran);
+	///	System.out.println(ran);
 		switch (ran){
 			case 1 : newChar = new Warrior();
 			break;
@@ -34,7 +34,6 @@ public abstract class Character implements Creature{
 			break;
 		}
 		return newChar;
-		
 	}
 
 	public void die() {

@@ -17,10 +17,15 @@ public class IO {
 		System.out.println(ask);
 		return scanHolder.INSTANCE.scan.nextLine();
 	}
+	public static String getString(){
+		return scanHolder.INSTANCE.scan.nextLine();
+	}
+	
 	public static int getInt(String ask){
 		System.out.println(ask);
-		return scanHolder.INSTANCE.scan.nextInt();
+		return Integer.parseInt(scanHolder.INSTANCE.scan.nextLine());
 	}
+	
 	public static void display(String text){
 		System.out.println(text);
 	}

@@ -4,6 +4,7 @@ import java.util.*;
 
 import cards.*;
 import data.*;
+import GUI.*;
 import iohandling.IO;
 import maps.*;
 import players.*;
@@ -25,7 +26,6 @@ public class Main {
 		DBHandler.createMap("data/MainMap.txt");
 		DBHandler.createAdventureCard("data/AdventureCards.txt");
 		
-		
 	}
 	
 // IO controll functions:	
@@ -46,11 +46,14 @@ public class Main {
 // Main function:	
 	public static void main(String[] args) {
 
+		
+		
 		PlayerList.create();
 
 		db();
+		GuiHandler gh = new GuiHandler();
 		start();
-		
+
 		
 		int turn = 1;
 		while(turn<10){
@@ -77,12 +80,14 @@ public class Main {
 		while (PNUM < 1 || PNUM > 4){
 			PNUM = IO.getInt("Write players number (1-4):");
 		}
-		
+
 		IO.display("Player number is: " + PNUM);
 		
 		for(int h = 1; h <= PNUM; h++){
 			IO.display("Player number " + h);
-			PlayerList.addPlayer(IO.getString("Write player number " + h + " name: "));
+			IO.display("Write player number " + h + " name: ");
+			
+			PlayerList.addPlayer(IO.getString());
 		}
 		
 		for(Player p : PlayerList.getList()){
