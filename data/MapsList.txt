@@ -1,9 +1,9 @@
-mim_mapsList
+mim_mapslist
 mapId
 mapName
 mapDBName
 mapFieldsDBName
 0
 Main Map
-mim_mainMap
+mim_mainmap
 mim_fields

@@ -1,10 +1,12 @@
 package characters;
 
 import iohandling.IO;
+import players.Player;
 
 public class Wizard extends Character{
 		
-	public Wizard(){
+	public Wizard(Player p){
+		super(p);
 		this.strength = 2;
 		this.craft = 4;
 		this.gold = 2;

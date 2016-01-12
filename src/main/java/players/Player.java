@@ -2,12 +2,7 @@ package players;
 
 import maps.*;
 
-import java.util.Random;
-
 import characters.Character;
-import characters.Elf;
-import characters.Warrior;
-import characters.Wizard;
 import iohandling.IO;
 
 public class Player {
@@ -21,7 +16,7 @@ public class Player {
 	};
 	public Player(String n){
 		this.name = n;
-		this.charact = Character.draw();
+		this.charact = Character.draw(this);
 		this.position = charact.startPosition;
 		this.map = 0;
 	}

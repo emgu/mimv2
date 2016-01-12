@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import iohandling.IO;
+
 public class MapsListCreator extends TabCreator{
 
 	private String filePath;

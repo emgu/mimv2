@@ -1,4 +1,4 @@
-mim_adventureCards
+mim_adventurecards
 advCardID	
 advCardName	
 advCardDescription	
@@ -25,17 +25,17 @@ gold
 
 2
 Wisdom book
-You have found some old wisdom book \n\rIncrease your intelligence by 1.
+You have found some old wisdom book \n\rIncrease your craft by 1.
 Event
-intelligence
+craft
 1
 
 
 3
 Fool
-Awkward Fool follow you and talk.\n\rBefore he go you lose 1 point of intelligence.
+Awkward Fool follow you and talk.\n\rBefore he go you lose 1 point of craft.
 Event
-intelligence
+craft
 -1
 
 
@@ -67,7 +67,7 @@ strength
 Shadow
 Dark Shadow wanders here.\n\rHe will stay here until somebody defeat him.
 Enemy
-intelligence
+craft
 2
 
 
@@ -77,24 +77,24 @@ Band of Wolfs wanders here.\n\rRoll a dice to check how many of them attacked Yo
 Enemy
 strength
 2
-each
+
 
 9
-Cardsharp	
-Cardsharp makes you to play cards\n\rFight with him using your intelligence.\n\rBid is 1 gold. He will stay here until somebody defeat him.
+Witch
+Witch wanders here.\n\rShe will stay here until somebody defeat her.
 Enemy
-intelligence
+craft
 4
-gold
-1
+
+
 10
 Dragon
 Dragon wanders here.\n\rHe will attack You using your weaker power.\n\rHe will stay here until somebody defeat him.
 Enemy
 strength
 7
-intelligence
-7
+
+
 11
 Axe
 You have found Axe \n\rIncrease your strength by 1 during fight.

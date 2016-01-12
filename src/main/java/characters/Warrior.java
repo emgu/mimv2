@@ -2,10 +2,12 @@ package characters;
 
 import cards.CardHandler;
 import iohandling.IO;
+import players.Player;
 
 public class Warrior extends Character{
 
-	public Warrior(){
+	public Warrior(Player p){
+		super(p);
 		this.strength = 4;
 		this.craft = 2;
 		this.gold = 2;
@@ -24,46 +26,23 @@ public class Warrior extends Character{
 		IO.display("<---------------------->");
 	}
 	@Override
-	public void fight(int cardId){
-		String enemyName = CardHandler.getCardInfo("advCardName", cardId);
-		String fightType = CardHandler.getCardInfo("Special1", cardId);
-		int enemyIndex = Integer.parseInt(CardHandler.getCardInfo("Special2", cardId));
-		
-		int characterIndex = 0;
-		int roll;
-		int roll2;
-		
-		if(fightType.equals("strength"))			characterIndex = this.strength;
-		else if(fightType.equals("craft"))			characterIndex = this.craft;
-		
-		
-		IO.display("Enemy " + fightType + " is " + enemyIndex);
-		roll = this.rollOfDice();
-		IO.display("Enemy roll " + roll);
-		enemyIndex += roll;
-		IO.display("It gives " + enemyIndex);
-		
-		
-		IO.display("Your " + fightType + " is " + characterIndex);
-		roll = this.rollOfDice();
-		IO.display("You roll " + roll);
-		String choise = IO.getString("Do you want to roll one more time? (press Y or y for yes):");
-		if(choise.equals("Y") || choise.equals("y")){ roll2 = this.rollOfDice();
-			IO.display("Your second roll is " + roll2);
-			choise = IO.getString("Do You want to change first roll  on second roll? (press Y or y for yes):");
-			if(choise.equals("Y") || choise.equals("y")) roll = roll2;
-		}
-	
-		characterIndex += roll;
-		IO.display("It gives you " + characterIndex);
-		
-		if(characterIndex > enemyIndex){
-			IO.display("You win " + fightType + " fight with " + enemyName);
-		}else if(characterIndex == enemyIndex){
-			IO.display("You draw " + fightType + " fight with " + enemyName);
-		}else if(characterIndex < enemyIndex){
-			IO.display("You lose " + fightType + " fight with " + enemyName);
-			this.modify("life", -1);
+	protected int rollFight(String who, String fightType, int index) {
+		if(who.equals("You") && fightType.equals("strength")){
+			IO.display(who + " " + fightType + " is " + index);
+			int roll = this.rollOfDice();
+			IO.display(who + " roll " + roll);
+			String choise = IO.getString("Do you want to roll one more time? (press Y or y, for yes):");
+			if(choise.equals("Y") || choise.equals("y")){ 
+				int roll2 = this.rollOfDice();
+				IO.display("Your second roll is " + roll2);
+				choise = IO.getString("Do You want to change first roll  on second roll? (press Y or y, for yes):");
+				if(choise.equals("Y") || choise.equals("y")) roll = roll2;
+			}
+			int res = index + roll;
+			IO.display("It gives " + res);
+			return res;
+		}else{
+			return super.rollFight(who, fightType, index);
 		}
 	}
 	

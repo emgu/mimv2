@@ -3,6 +3,8 @@ package data;
 import java.io.*;
 import java.sql.*;
 
+import iohandling.IO;
+
 public class DataBase {
 	static DataBase inst = null;
 	String url;
@@ -30,8 +32,9 @@ public class DataBase {
 			this.conection = DriverManager.getConnection(url, user, password);
 			this.statement = conection.createStatement();
 			
+			
 			if(!statement.executeQuery("SHOW DATABASES LIKE '" + dbName + "'").next()){
-				this.statement.execute("CREATE DATABASE " + this.dbName);
+				this.statement.execute("CREATE DATABASE " + this.dbName + " CHARACTER SET utf8 COLLATE utf8_general_ci");
 			}
 			this.statement.execute("USE " + this.dbName);
 			
@@ -83,7 +86,7 @@ public class DataBase {
 	
 	public int mapSize(int mapId) {
 		try {
-			String mapDB = getMapInfo(mapId, "mapDBname");
+			String mapDB = getMapInfo(mapId, "mapDBName");
 			result = statement.executeQuery("SELECT COUNT(*) "
 					+ "FROM " + mapDB);
 			result.first();
@@ -94,12 +97,13 @@ public class DataBase {
 			return 0;
 		}
 	}
+	
 	// "info" is name of wanted field
 	private String getMapInfo(int mapId, String info) {
 		try {
 			ResultSet mapInfo;
 			mapInfo = statement.executeQuery("SELECT *"
-					+ " FROM mim_mapsList"
+					+ " FROM mim_mapslist"
 					+ " WHERE mapId = " + mapId);
 			mapInfo.first();
 			return mapInfo.getString(info);

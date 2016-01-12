@@ -38,7 +38,7 @@ public class CardHandler {
 			return null;
 		}
 	}
-	static public int getAdvCardAmounh() {
+	static public int getAdvCardAmount() {
 		return DB.advCardAmount();
 	}
 	

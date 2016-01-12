@@ -1,10 +1,12 @@
 package characters;
 
 import iohandling.IO;
+import players.Player;
 
 public class Elf extends Character{
 
-	public Elf(){
+	public Elf(Player p){
+		super(p);
 		this.strength = 3;
 		this.craft = 3;
 		this.gold = 2;

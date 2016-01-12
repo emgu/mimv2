@@ -2,6 +2,8 @@ package mim;
 
 import java.util.*;
 
+import javax.swing.JFrame;
+
 import cards.*;
 import data.*;
 import GUI.*;
@@ -46,17 +48,19 @@ public class Main {
 // Main function:	
 	public static void main(String[] args) {
 
-		
-		
 		PlayerList.create();
 
 		db();
-		GuiHandler gh = new GuiHandler();
+	//	GuiHandler gh = new GuiHandler();
+	//	Window w = new Window();
+	//	w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	w.setVisible(true);
 		start();
 
 		
 		int turn = 1;
-		while(turn<10){
+		while(turn<30 && !PlayerList.isEmpty()){
+		
 			System.out.println("");
 			System.out.println("Turn number " + turn + " :");
 			for(Player p : PlayerList.getList()){
@@ -67,9 +71,12 @@ public class Main {
 				p.explore();
 				System.out.println("");
 				p.printPlayer();
+				IO.getString();
 			}
+			
 			System.out.println("End of turn number " + turn);
 			System.out.println("");
+			PlayerList.cleanUp();
 			turn++;
 		}
 		
