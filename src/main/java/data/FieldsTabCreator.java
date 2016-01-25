@@ -13,7 +13,7 @@ class FieldsTabCreator extends TabCreator {
 	};
 	
 	@Override
-	public void createTab(Statement statement) {
+	void createTab(Statement statement) {
 		try {
 			BufferedReader fields = new BufferedReader(new FileReader(this.filePath));
 			String tabName = fields.readLine();

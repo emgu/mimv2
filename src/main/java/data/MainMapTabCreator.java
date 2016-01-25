@@ -12,7 +12,7 @@ class MainMapTabCreator extends TabCreator {
 	};
 	
 	@Override
-	public void createTab(Statement statement) {
+	void createTab(Statement statement) {
 		try {
 			BufferedReader mapfields = new BufferedReader(new FileReader(this.filePath));
 

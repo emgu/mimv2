@@ -11,9 +11,9 @@ public class DBHandler {
 		return DB;
 	}
 	
-	// createing table with all available maps list
+	// creating table with all available maps list - Builder
 	static public void createMapsList (String MapsListPath){
-		DB.setTabCreator(new MapsListCreator(MapsListPath));
+		DB.setTabCreator(new MapsListTabCreator(MapsListPath));
 		DB.createTab();
 	};
 	static public void createFields (String fieldsConfigPath){
@@ -23,8 +23,7 @@ public class DBHandler {
 	static public void createMap (String mapConfigPath){
 		DB.setTabCreator(new MainMapTabCreator(mapConfigPath));
 		DB.createTab();
-	};
-	
+	};	
 	static public void createAdventureCard (String advCardConfigPath){
 		DB.setTabCreator(new AdventureCardCreator(advCardConfigPath));
 		DB.createTab();

@@ -9,11 +9,11 @@ import java.sql.Statement;
 
 import iohandling.IO;
 
-public class MapsListCreator extends TabCreator{
+public class MapsListTabCreator extends TabCreator{
 
 	private String filePath;
 	
-	MapsListCreator(String path){
+	MapsListTabCreator(String path){
 		this.filePath = path;
 	};
 	

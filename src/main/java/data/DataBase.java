@@ -6,6 +6,7 @@ import java.sql.*;
 import iohandling.IO;
 
 public class DataBase {
+	
 	static DataBase inst = null;
 	String url;
 	String user;
@@ -65,7 +66,7 @@ public class DataBase {
 	void setTabCreator(TabCreator currentStrategy){
 		this.tabCreator = currentStrategy;
 	}
-	/////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
 	/////////////////////// MAPS /////////////////////////////////	
 	public ResultSet getField(int mapId, int index) {
 		try {
