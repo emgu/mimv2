@@ -51,7 +51,7 @@ public class Main {
 		PlayerList.create();
 
 		db();
-	//	GuiHandler gh = new GuiHandler();
+		GuiHandler gh = new GuiHandler();
 	//	Window w = new Window();
 	//	w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	//	w.setVisible(true);

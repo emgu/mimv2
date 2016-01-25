@@ -4,8 +4,7 @@ import java.util.Random;
 
 import cards.*;
 import iohandling.IO;
-import players.Player;
-import players.PlayerList;
+import players.*;
 
 
 public abstract class Character implements Creature{
@@ -13,32 +12,28 @@ public abstract class Character implements Creature{
 	protected int craft;
 	protected int gold;
 	protected int life;
-	protected int expS;
-	protected int expC;
-	
-	final protected int nextLev;
-	
-	final public Player player;
-	
+	public int startPosition;
 	public String profession;
 	
+	protected int expS;
+	protected int expC;
+	protected final int NEXTLEV;
+	
+	public final Player PLAYER;
+	public static Random randGen = new Random();
+
 	protected  Character(Player p){
 		expS = 0;
 		expC = 0;
-		nextLev = 5;
-		player = p;
+		NEXTLEV = 5;
+		PLAYER = p;
 	}
-	
-	public static Random randGen = new Random();
-
-	public int startPosition;
-	
 	static public Character draw(Player p){
 		Character newChar;
 		Random generator = new Random();
 		int charNum = 3; /// iloœæ charakterów
 		int ran = generator.nextInt(charNum )+1;
-		ran = 2;
+	//	ran = 1;
 	///	System.out.println(ran);
 		switch (ran){
 			case 1 : newChar = new Warrior(p);
@@ -52,16 +47,43 @@ public abstract class Character implements Creature{
 		}
 		return newChar;
 	}
-
+	public void modify(String toModify, int i) {
+		switch (toModify){
+			case "strength" : this.strength += i;
+				break;
+			case "craft" : this.craft += i;
+				break;
+			case "gold" : this.gold += i;
+				break;
+			case "life" : this.life += i;
+				break;
+			case "expS" : this.expS += i;
+				break;
+			case "expC" : this.expC += i;
+				break;
+			default : 
+				break;
+		}
+		if (this.life < 1) this.die();
+		if (expS > this.NEXTLEV){
+			int increase = expS / this.NEXTLEV;
+			expS %= this.NEXTLEV;
+			this.strength += increase;
+		}
+		if (expC > this.NEXTLEV){
+			int increase = expC / this.NEXTLEV;
+			expC %= this.NEXTLEV;
+			this.craft += increase;
+		}
+	}
+	public boolean isAlive(){
+		return this.life > 0;
+	}
 	public void die() {
 		this.life = 0;
 		IO.display("You die...");
 	//	PlayerList.killPlayer(this.player);
 	}
-	public boolean isAlive(){
-		return this.life > 0;
-	}
-
 	public void printCard() {
 		IO.display("<--- CHARACTER CARD --->");
 		IO.display("Character profession: " + this.profession);
@@ -70,7 +92,48 @@ public abstract class Character implements Creature{
 		IO.display("Character gold: " + this.gold);
 		IO.display("Character life: " + this.life);
 	}
-	
+	//////////////////////////////////
+	public int rollOfDice(){
+		return (randGen.nextInt(5)+1);
+	}
+	public int move(int from, boolean ifleft){
+		if(ifleft){
+			return from - rollOfDice();
+		}else{
+			return from + rollOfDice();
+		}
+	}
+	public void explore(int mapId, int fieldId) {
+		
+		//	int cardNum = MapHandler.explore(mapId, fieldId);
+			int cardId = randGen.nextInt(CardHandler.getAdvCardAmount());
+			this.execute(cardId);
+			
+		}
+	private void execute(int cardId) {
+		CardHandler.printCard(cardId);
+		String cardType = CardHandler.getCardInfo("advCardType", cardId);
+		switch (cardType){
+		case "Event" : this.eventCardHandle(cardId);
+			break;
+		case "Object" : this.objectCardHandle(cardId);
+			break;
+		case "Enemy" : this.enemyCardHandle(cardId);
+			break;
+		default : IO.display("Nothing happend.");
+			return;
+		}
+//		card.affect(this);
+	}
+	private void eventCardHandle(int cardId) {
+	//	if(CardHandler.getCardInfo("Special1", cardId))
+		IO.display("Event");
+		this.modify(CardHandler.getCardInfo("Special1", cardId), Integer.parseInt(CardHandler.getCardInfo("Special2", cardId)));
+	}
+	private void enemyCardHandle(int cardId) {
+		IO.display("Enemy");
+		this.fight(cardId);
+	}
 	public void fight(int cardId){
 		String enemyName = CardHandler.getCardInfo("advCardName", cardId);
 		String fightType = CardHandler.getCardInfo("Special1", cardId);
@@ -99,7 +162,6 @@ public abstract class Character implements Creature{
 			this.modify("life", -1);
 		}
 	}
-	
 	protected int rollFight(String who, String fightType, int index) {
 		IO.display(who + " " + fightType + " is " + index);
 		int roll = this.rollOfDice();
@@ -107,86 +169,17 @@ public abstract class Character implements Creature{
 		int res = index + roll;
 		IO.display("It gives " + res);
 		return res;
-	}
-
-	public int move(int from, boolean ifleft){
-		if(ifleft){
-			return from - rollOfDice();
-		}else{
-			return from + rollOfDice();
-		}
-	}
-	
-	public int rollOfDice(){
-		return (randGen.nextInt(5)+1);
-	}
-
-	public void explore(int mapId, int fieldId) {
-		
-	//	int cardNum = MapHandler.explore(mapId, fieldId);
-		int cardId = randGen.nextInt(CardHandler.getAdvCardAmount());
-		this.execute(cardId);
-		
-	}
-	private void execute(int cardId) {
-		CardHandler.printCard(cardId);
-		String cardType = CardHandler.getCardInfo("advCardType", cardId);
-		switch (cardType){
-		case "Event" : this.eventCardHandle(cardId);
-			break;
-		case "Object" : this.objectCardHandle(cardId);
-			break;
-		case "Enemy" : this.enemyCardHandle(cardId);
-			break;
-		default : IO.display("Nothing happend.");
-			return;
-		}
-//		card.affect(this);
-	}
-
-	private void eventCardHandle(int cardId) {
-	//	if(CardHandler.getCardInfo("Special1", cardId))
-		IO.display("Event");
-		this.modify(CardHandler.getCardInfo("Special1", cardId), Integer.parseInt(CardHandler.getCardInfo("Special2", cardId)));
-	}
-
-	private void enemyCardHandle(int cardId) {
-		IO.display("Enemy");
-		this.fight(cardId);
-	}
-	
+	}	
 	private void objectCardHandle(int cardId) {
 		IO.display("Object");	
 	}
 	
-	public void modify(String toModify, int i) {
-		switch (toModify){
-			case "strength" : this.strength += i;
-				break;
-			case "craft" : this.craft += i;
-				break;
-			case "gold" : this.gold += i;
-				break;
-			case "life" : this.life += i;
-				break;
-			case "expS" : this.expS += i;
-				break;
-			case "expC" : this.expC += i;
-				break;
-			default : 
-				break;
-		}
-		if (this.life < 1) this.die();
-		if (expS > this.nextLev){
-			int increase = expS / this.nextLev;
-			expS %= this.nextLev;
-			this.strength += increase;
-		}
-		if (expC > this.nextLev){
-			int increase = expC / this.nextLev;
-			expC %= this.nextLev;
-			this.craft += increase;
-		}
-	}
+	
+	
+	
+
+	
+	
+	
 
 }

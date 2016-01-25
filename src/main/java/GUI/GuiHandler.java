@@ -8,6 +8,8 @@ import maps.MapHandler;
 
 public class GuiHandler{
 	JFrame map;
+	JFrame player;
+	
 	public GuiHandler (){
 		map = new JFrame("map");
 		map.setVisible(true);

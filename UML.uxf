@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.1">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>54</x>
+      <y>300</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Player
+--
++ windowName : String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>354</x>
+      <y>522</y>
+      <w>270</w>
+      <h>414</h>
+    </coordinates>
+    <panel_attributes>Characters
+--
+# strength : int
+# craft : int
+# gold : int
+# life : int
++ startPosition : int
++ profession : String
+
+# expS : int
+# expC : int
+# NEXTLEV : int
+
++ PLAYER : Player
+_+ randGen : Random_
+--
+# Character(p : Player)
+_+ draw(p : Player) : void_
++ die() : void 
++ isAlive() : boolean
++ printCard() : void
++ fight(int cardId) : void
+# int rollFight(String who, String fightType, int index) {
++ int move(int from, boolean ifleft){
++ int rollOfDice(){
++ explore(int mapId, int fieldId) : void
+- execute(int cardId) : void	
+- eventCardHandle(int cardId) : void
+- enemyCardHandle(int cardId) : void
+- objectCardHandle(cardId : int) : void
++ modify(toModify : String , i : int) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>876</x>
+      <y>18</y>
+      <w>84</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>Note..
+_static_
+FINAL
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>300</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Package::GUI
+WindowHandler
+--
+- player1 : Player
+- player2 : Player
+- player3 : Player
+- player4 : Player
+- map : Map
+- dice : Dice
+--
++ create(String toCreate) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>186</x>
+      <y>144</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::GUI
+Window
+--
++ windowName : String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>186</x>
+      <y>300</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Map
+--
++ windowName : String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>318</x>
+      <y>300</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Dice
+--
++ windowName : String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>108</x>
+      <y>252</y>
+      <w>150</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>230.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>252</y>
+      <w>18</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>252</y>
+      <w>150</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;230.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>756</x>
+      <y>108</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::???
+Handler
+--
+--
++ create(String toCreate) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>438</x>
+      <y>348</y>
+      <w>144</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>624</x>
+      <y>216</y>
+      <w>204</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>320.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>300</y>
+      <w>126</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Package::data
+DBHandler
+--
+
+--
++ create(String toCreate) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
