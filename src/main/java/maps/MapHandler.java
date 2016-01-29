@@ -2,20 +2,13 @@ package maps;
 
 import java.sql.*;
 
-import data.*;
+import mim.Main;
 
-public class MapHandler {
-	
-	static DataBase DB;
-	
-	public static void create(DataBase db) {
-		DB = db;
-	}
+public class MapHandler extends Main{
 	
 	public static int getMapSize(int mapId) {
 		return DB.mapSize(mapId);
 	}
-	
 	public static String fieldName(int mapId, int fieldId) {
 		try {
 			ResultSet res = DB.getField(mapId, fieldId);
@@ -27,8 +20,7 @@ public class MapHandler {
 			return null;
 		}
 	}
-	
-	static public void printField(int mapId, int fieldId){
+	public static void printField(int mapId, int fieldId){
 		
 		try {
 			ResultSet res = DB.getField(mapId, fieldId);
@@ -44,7 +36,6 @@ public class MapHandler {
 			e.printStackTrace();
 		}
 	}
-
 	public static void printMap(int mapId) {
 		int mapSize = MapHandler.getMapSize(mapId);
 		for(int index = 0; index < mapSize; index++){
@@ -53,17 +44,4 @@ public class MapHandler {
 		}
 	}
 
-	public static int explore(int mapId, int fieldId) {
-		try {
-		ResultSet res = DB.getField(mapId, fieldId);
-			res.first();
-			return res.getInt("cardNum");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 0;
-		}
-		
-	}
-	
 }

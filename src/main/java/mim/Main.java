@@ -13,57 +13,44 @@ import players.*;
 
 public class Main {
 
-	static final Scanner scan = new Scanner(System.in);
+	static final Scanner SCAN = new Scanner(System.in);
 	static int PNUM = 0;
+	protected static DataBase DB;
 	
-	
-	static void db(){
-		DBHandler.createDB("data/DBConfig.txt");
+	static void dbStart(){
 		
-		MapHandler.create(DBHandler.getDB());
-		CardHandler.create(DBHandler.getDB());
-
-		DBHandler.createMapsList("data/MapsList.txt");
-		DBHandler.createFields("data/Fields.txt");
-		DBHandler.createMap("data/MainMap.txt");
-		DBHandler.createAdventureCard("data/AdventureCards.txt");
+		DB = new DataBase("data/DBConfig.txt");
 		
-	}
+		// creating table with all available maps list - Builder
+		DB.setTabCreator(new MapsListTabCreator("data/MapsList.txt"));
+		DB.createTab();
 	
-// IO controll functions:	
+		DB.setTabCreator(new FieldsTabCreator("data/Fields.txt"));
+		DB.createTab();
+		
+		DB.setTabCreator(new MainMapTabCreator("data/MainMap.txt"));
+		DB.createTab();
 
-	private static int readInt() {
-		try{
-			return Integer.parseInt(scan.nextLine());
-		}catch(NumberFormatException e){
-			e.printStackTrace(System.out);
-			return Integer.MIN_VALUE;
-		}
-	}
-	private static String readString() {
-		return scan.nextLine();
+		DB.setTabCreator(new AdventureTabCreator("data/AdventureCards.txt"));
+		DB.createTab();
 		
 	}
 	
 // Main function:	
 	public static void main(String[] args) {
 
-		PlayerList.create();
 
-		db();
-		GuiHandler gh = new GuiHandler();
-	//	Window w = new Window();
-	//	w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//	w.setVisible(true);
-		start();
+
+		dbStart();
+		playersStart();
 
 		
 		int turn = 1;
-		while(turn<30 && !PlayerList.isEmpty()){
+		while(turn<30 && !PlayerHandler.allDead()){
 		
 			System.out.println("");
 			System.out.println("Turn number " + turn + " :");
-			for(Player p : PlayerList.getList()){
+			for(Player p : PlayerHandler.getList()){
 				System.out.println("");
 				System.out.println("Player " + p.getName() + " - " + p.getProfession() + " :");
 				p.move();
@@ -76,14 +63,14 @@ public class Main {
 			
 			System.out.println("End of turn number " + turn);
 			System.out.println("");
-			PlayerList.cleanUp();
+			PlayerHandler.cleanUp();
 			turn++;
 		}
 		
 	}
 
 
-	private static void start() {
+	private static void playersStart() {
 		while (PNUM < 1 || PNUM > 4){
 			PNUM = IO.getInt("Write players number (1-4):");
 		}
@@ -94,10 +81,10 @@ public class Main {
 			IO.display("Player number " + h);
 			IO.display("Write player number " + h + " name: ");
 			
-			PlayerList.addPlayer(IO.getString());
+			PlayerHandler.addPlayer(IO.getString());
 		}
 		
-		for(Player p : PlayerList.getList()){
+		for(Player p : PlayerHandler.getList()){
 			p.printPlayer();
 		}
 	}

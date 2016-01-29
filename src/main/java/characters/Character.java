@@ -7,13 +7,14 @@ import iohandling.IO;
 import players.*;
 
 
-public abstract class Character implements Creature{
+public abstract class Character{
 	protected int strength;
 	protected int craft;
 	protected int gold;
 	protected int life;
-	public int startPosition;
-	public String profession;
+	
+	public int position;
+	public int map;
 	
 	protected int expS;
 	protected int expC;
@@ -86,7 +87,7 @@ public abstract class Character implements Creature{
 	}
 	public void printCard() {
 		IO.display("<--- CHARACTER CARD --->");
-		IO.display("Character profession: " + this.profession);
+		IO.display("Character: " + this.profession);
 		IO.display("Character strength: " + this.strength + ", strength experience: " + this.expS);
 		IO.display("Character craft: " + this.craft + ", craft experience: " + this.expC);
 		IO.display("Character gold: " + this.gold);
@@ -96,12 +97,15 @@ public abstract class Character implements Creature{
 	public int rollOfDice(){
 		return (randGen.nextInt(5)+1);
 	}
-	public int move(int from, boolean ifleft){
+	public int move(){
+		boolean ifleft = true;
+		int roll = rollOfDice();
 		if(ifleft){
-			return from - rollOfDice();
+			this.position -= roll;
 		}else{
-			return from + rollOfDice();
+			this.position += roll;
 		}
+		return this.position;
 	}
 	public void explore(int mapId, int fieldId) {
 		

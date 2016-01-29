@@ -3,11 +3,11 @@ package data;
 import java.io.*;
 import java.sql.*;
 
-class MainMapTabCreator extends TabCreator {
+public class MainMapTabCreator extends TabCreator {
 
 	private String filePath;
 	
-	MainMapTabCreator(String path){
+	public MainMapTabCreator(String path){
 		this.filePath = path;
 	};
 	

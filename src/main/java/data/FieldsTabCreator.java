@@ -3,11 +3,11 @@ package data;
 import java.io.*;
 import java.sql.*;
 
-class FieldsTabCreator extends TabCreator {
+public class FieldsTabCreator extends TabCreator {
 
 	private String filePath;
 	
-	FieldsTabCreator(String path){
+	public FieldsTabCreator(String path){
 		this.filePath = path;
 		
 	};

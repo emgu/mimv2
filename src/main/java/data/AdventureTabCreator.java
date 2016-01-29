@@ -3,11 +3,11 @@ package data;
 import java.io.*;
 import java.sql.*;
 
-public class AdventureCardCreator extends TabCreator {
+public class AdventureTabCreator extends TabCreator {
 
 	private String filePath;
 	
-	AdventureCardCreator(String path){
+	public AdventureTabCreator(String path){
 		this.filePath = path;
 		
 	};

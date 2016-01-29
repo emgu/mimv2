@@ -17,7 +17,7 @@ public class DataBase {
 	
 	public ResultSet result;
 	// constructor
-	private DataBase(String DBConfigFile){
+	public DataBase(String DBConfigFile){
 		
 		try {
 			tabCreator = null;
@@ -56,14 +56,14 @@ public class DataBase {
 	
 	// Strategy of tab creation
 	TabCreator tabCreator;// strategy
-	void createTab(){
+	public void createTab(){
 		if (tabCreator == null){
 			System.out.println("tabCreator strategy not exist!!!");
 			return;
 		}
 		tabCreator.createTab(this.statement);
 	};
-	void setTabCreator(TabCreator currentStrategy){
+	public void setTabCreator(TabCreator currentStrategy){
 		this.tabCreator = currentStrategy;
 	}
 	//////////////////////////////////////////////////////////////

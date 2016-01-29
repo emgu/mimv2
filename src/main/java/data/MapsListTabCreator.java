@@ -13,7 +13,7 @@ public class MapsListTabCreator extends TabCreator{
 
 	private String filePath;
 	
-	MapsListTabCreator(String path){
+	public MapsListTabCreator(String path){
 		this.filePath = path;
 	};
 	

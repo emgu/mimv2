@@ -1,17 +1,12 @@
 package cards;
 
 import java.sql.*;
-import data.*;
 
-public class CardHandler {
+import mim.Main;
+
+public class CardHandler extends Main{
 	
-	static DataBase DB;
-	
-	static public void create(DataBase db) {
-		DB = db;
-	}
-	
-	static public void printCard(int cardId){
+	public static void printCard(int cardId){
 		try {
 			ResultSet card = DB.getCard(cardId);
 			System.out.println("----ADVENTURE----");
@@ -28,7 +23,7 @@ public class CardHandler {
 			e.printStackTrace();
 		}
 	}
-	static public String getCardInfo(String info, int cardId){
+	public static String getCardInfo(String info, int cardId){
 		try {
 			ResultSet card = DB.getCard(cardId);
 			card.first();
@@ -38,7 +33,7 @@ public class CardHandler {
 			return null;
 		}
 	}
-	static public int getAdvCardAmount() {
+	public static int getAdvCardAmount() {
 		return DB.advCardAmount();
 	}
 	
