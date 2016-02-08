@@ -19,7 +19,7 @@ public class GuiHandler{
 		JButton lab;
 		
 		for(int fieldId = 3; fieldId < MapHandler.getMapSize(0); fieldId++){
-			lab = new JButton(MapHandler.fieldName(0, fieldId));
+			lab = new JButton(MapHandler.getFieldInfo(0, fieldId, "name"));
 			lab.setSize(150, 30);
 			lab.setLocation(0, fieldId*30);
 			map.add(lab);

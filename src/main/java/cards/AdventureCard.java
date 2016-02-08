@@ -11,7 +11,7 @@ public abstract class AdventureCard implements Card{
 		this.description = d;
 		this.type = t;
 	}
-	abstract public void affect(Character character);
+//	abstract public void affect(Character character);
 	public void printCard() {
 		System.out.println("----ADVENTURE----");
 		System.out.println(this.type);

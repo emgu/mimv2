@@ -2,17 +2,29 @@ package players;
 
 import java.util.*;
 
+import iohandling.IO;
+
 public class PlayerHandler{
 	
+	private static PlayerHandler instance = null;
 	private static List<Player> playerList;
 	
 	private PlayerHandler(){
 		playerList = new ArrayList<Player>();
-	};
-	public static void addPlayer(String name){
-		playerList.add(new Player(name));
 	}
-	public static void killPlayer(Player p){
+	//Singleton
+	public static PlayerHandler getInstance(){
+		if (instance == null){
+			instance = new PlayerHandler();
+			return instance;
+		}
+		return instance;
+	}
+
+	public static void addPlayer(Player newPlayer){
+		playerList.add(newPlayer);
+	}
+	public static void removePlayer(Player p){
 		playerList.remove(p);
 	}	
 	public static List<Player> getList(){
@@ -22,10 +34,9 @@ public class PlayerHandler{
 		return playerList.isEmpty();
 	}
 	public static void cleanUp() {
-		for(Player p : playerList){
-			if(!p.charact.isAlive()){
-				playerList.remove(p);
-			}
+		Iterator<Player> itr = playerList.iterator();
+		while(itr.hasNext()){
+			if(itr.next().character.isDead()) itr.remove();;
 		}
 	}
 

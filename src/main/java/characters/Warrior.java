@@ -6,15 +6,15 @@ import players.Player;
 
 public class Warrior extends Character{
 
-	public Warrior(Player p){
-		super(p);
+	public Warrior(){
+		super();
 		this.strength = 4;
 		this.craft = 2;
 		this.gold = 2;
 		this.life = 4;
 		
-		this.startPosition = 0; // Tavern
-		this.profession = "Warrior";
+		this.position = 0; // Tavern
+	//	this.profession = "Warrior";
 		
 	};
 	@Override

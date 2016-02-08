@@ -7,18 +7,16 @@ import iohandling.IO;
 
 public class DataBase {
 	
-	static DataBase inst = null;
+	static DataBase instance = null;
 	String url;
 	String user;
 	String password;
 	String dbName;
 	Connection conection;
-	protected Statement statement;	
-	
+	protected static Statement statement;	// passed for DB queries execution
 	public ResultSet result;
-	// constructor
+
 	public DataBase(String DBConfigFile){
-		
 		try {
 			tabCreator = null;
 			System.out.println("constructor of DB");
@@ -31,114 +29,38 @@ public class DataBase {
 			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			this.conection = DriverManager.getConnection(url, user, password);
-			this.statement = conection.createStatement();
-			
+			statement = conection.createStatement();
 			
 			if(!statement.executeQuery("SHOW DATABASES LIKE '" + dbName + "'").next()){
-				this.statement.execute("CREATE DATABASE " + this.dbName + " CHARACTER SET utf8 COLLATE utf8_general_ci");
+				statement.execute("CREATE DATABASE " + this.dbName + " CHARACTER SET utf8 COLLATE utf8_general_ci");
 			}
-			this.statement.execute("USE " + this.dbName);
+			statement.execute("USE " + this.dbName);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 	//Singleton
-	static DataBase createDB(String DBConfigFile){
-		if(inst == null){
-			System.out.println("create DB attempt");
-			inst = new DataBase(DBConfigFile);
-			return inst;
+	public static DataBase getInstance(String DBConfigFile){
+		if(instance == null){
+			IO.display("create DB attempt");
+			instance = new DataBase(DBConfigFile);
+			return instance;
 		}
-		return inst;
+		return instance;
 	}
-	
+
 	// Strategy of tab creation
 	TabCreator tabCreator;// strategy
 	public void createTab(){
 		if (tabCreator == null){
-			System.out.println("tabCreator strategy not exist!!!");
+			IO.display("tabCreator strategy not exist!!!");
 			return;
 		}
-		tabCreator.createTab(this.statement);
+		tabCreator.createTab(statement);
 	};
 	public void setTabCreator(TabCreator currentStrategy){
 		this.tabCreator = currentStrategy;
-	}
-	//////////////////////////////////////////////////////////////
-	/////////////////////// MAPS /////////////////////////////////	
-	public ResultSet getField(int mapId, int index) {
-		try {
-			
-			String mapDB = getMapInfo(mapId, "mapDBname");
-			String fieldsDB = getMapInfo(mapId, "mapFieldsDBName");
-
-			result = statement.executeQuery("SELECT * "
-					+ "FROM " + mapDB + " AS mm, " + fieldsDB + " AS f "
-					+ "WHERE mm.fieldID = f.fieldID AND "
-					+ "mm.mainMapFieldId = " + index);
-			return result;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public int mapSize(int mapId) {
-		try {
-			String mapDB = getMapInfo(mapId, "mapDBName");
-			result = statement.executeQuery("SELECT COUNT(*) "
-					+ "FROM " + mapDB);
-			result.first();
-			return result.getInt("COUNT(*)");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 0;
-		}
-	}
-	
-	// "info" is name of wanted field
-	private String getMapInfo(int mapId, String info) {
-		try {
-			ResultSet mapInfo;
-			mapInfo = statement.executeQuery("SELECT *"
-					+ " FROM mim_mapslist"
-					+ " WHERE mapId = " + mapId);
-			mapInfo.first();
-			return mapInfo.getString(info);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	/////////////////////// CARDS /////////////////////////////////
-	public ResultSet getCard(int cardId) {
-		try {
-
-			result = statement.executeQuery("SELECT * "
-					+ "FROM mim_adventureCards AS ac "
-					+ "WHERE ac.advCardId = " + cardId);
-			return result;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public int advCardAmount() {
-		try {
-			result = statement.executeQuery("SELECT COUNT(*) "
-					+ "FROM mim_adventureCards");
-			result.first();
-			return result.getInt("COUNT(*)");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 0;
-		}
 	}
 
 }

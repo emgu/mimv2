@@ -2,31 +2,40 @@ package iohandling;
 
 import java.util.Scanner;
 
-public class IO {
-	private Scanner scan;
+public class IO{
+	
+	private static IO instance = null;
+	private static Scanner scan;
 	
 	private IO(){
 		scan = new Scanner(System.in);
 	}
-	
-	private static class scanHolder{
-		private static final IO INSTANCE = new IO();
+	public static IO getInstance(){
+		if(instance == null){
+			instance = new IO();
+			return instance;
+		}
+		return instance;
 	}
 	
 	public static String getString(String ask){
 		System.out.println(ask);
-		return scanHolder.INSTANCE.scan.nextLine();
+		return scan.nextLine();
 	}
 	public static String getString(){
-		return scanHolder.INSTANCE.scan.nextLine();
+		return scan.nextLine();
 	}
-	
 	public static int getInt(String ask){
 		System.out.println(ask);
-		return Integer.parseInt(scanHolder.INSTANCE.scan.nextLine());
+		return Integer.parseInt(scan.nextLine());
 	}
-	
+	public static int getInt(){
+		return Integer.parseInt(scan.nextLine());
+	}
 	public static void display(String text){
+		System.out.println(text);
+	}
+	public static void display(int text){
 		System.out.println(text);
 	}
 }

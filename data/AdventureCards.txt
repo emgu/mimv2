@@ -99,39 +99,39 @@ strength
 Axe
 You have found Axe \n\rIncrease your strength by 1 during fight.
 Object
-weapon
+Weapon
 strength
 1
-1
+
 12
 Sword
 You have found Sword \n\rIncrease your strength by 1 during fight.
 Object
-weapon
+Weapon
 strength
 1
-1
+
 13
-Armor
+Armour
 You have found Armor \n\rYou wear Armor, and lose 1 life after lost fight you can roll a dice.\n\rIf You roll 4, 5 or 6, Armor protect you from losing life point.
 Object
-protection
+Armour
+strength
 3
 
-1
 14
 Shield
 You have found Shield \n\rYou wear Shield, and lose 1 life after lost fight you can roll a dice.\n\rIf You roll 5 or 6, Shield protect you from losing life point.
 Object
-protection
+Shield
+strength
 2
 
-1
 15
 Helmet
 You have found Helmet \n\rYou wear Helmet, and lose 1 life after lost fight you can roll a dice.\n\rIf You roll 6, Helmet protect you from losing life point.
 Object
-protection
+Helmet
+strength
 1
 
-1
