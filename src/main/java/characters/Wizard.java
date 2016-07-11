@@ -1,7 +1,8 @@
 package characters;
 
 import iohandling.IO;
-import players.Player;
+import cards.CardHandler;
+
 
 public class Wizard extends Character{
 		
@@ -13,16 +14,26 @@ public class Wizard extends Character{
 		this.life = 4;
 		
 		this.position = 6; // Town
-	//	this.profession = "Wizzard";
-		
+
 	};
 	@Override
 	public void printCard() {
+		
 		super.printCard();
 		
 		IO.display("<--- SPECIAL ABILITIES --->");
-		IO.display("1. ");
+		IO.display("1. You have extaordinary perception. This allows You to ignore Events.");
 		IO.display("<---------------------->");
 	}
-	
+	@Override
+	public void eventCardHandle(int cardId) {
+
+		// Wizard ability
+		if(IO.getString("Do You want to Ignore event? (y for yes):").equals("y")){
+			IO.display("You avoid " + CardHandler.getCardInfo("advCardName", cardId));
+			return;
+		}
+			
+		this.modify(CardHandler.getCardInfo("Special1", cardId), Integer.parseInt(CardHandler.getCardInfo("Special2", cardId)));
+	}
 }

@@ -12,7 +12,7 @@ public class Player {
 	
 	public Player(String n){
 		this.name = n;
-		this.character = Character.draw(this);
+		this.character = Character.draw();
 	}
 	
 	public void printPlayer(){

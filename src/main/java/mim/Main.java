@@ -41,7 +41,7 @@ public class Main {
 		playersStart();
 
 		int turn = 1;
-		Player p;
+	//	Player p;
 		Iterator<Player> itr;
 		
 		while(turn<30 && !PlayerHandler.allDead()){
@@ -51,7 +51,7 @@ public class Main {
 			
 			itr = PlayerHandler.getList().iterator();
 			
-			while(itr.hasNext()){
+	/*		while(itr.hasNext()){
 			
 				p = itr.next();
 				
@@ -69,6 +69,22 @@ public class Main {
 				
 				if(p.character.isDead()) itr.remove();
 
+			}*/
+			
+			for(Player p : PlayerHandler.getList()){
+				IO.display("");
+				IO.display("Player " + p.name + " - " + p.character.getClass().getSimpleName() + " :");
+				
+				p.move();
+				IO.display("");
+				
+				p.explore();
+				IO.display("");
+				
+				p.printPlayer();
+				IO.getString();
+				
+				if(p.character.isDead()) PlayerHandler.getList().remove(p);
 			}
 			
 			IO.display("End of turn number " + turn);

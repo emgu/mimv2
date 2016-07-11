@@ -4,15 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
-import cards.*;
+import cards.CardHandler;
 import equipment.*;
 import iohandling.IO;
 import maps.MapHandler;
-import players.*;
 
 
 public abstract class Character{
-	// 
+/////////////////////////////////////////////
 	protected int strength;
 	protected int craft;
 	protected int gold;
@@ -26,23 +25,23 @@ public abstract class Character{
 	protected final int NEXTLEV;
 	// stuff
 	public Equipment<String, Obj> equipment;
-	
+	// random
 	public static Random randGen = new Random();
-
-	protected  Character(){
+/////////////////////////////////////////////
+	protected Character(){
 		map = 0; 		// all characters start in main map
 		expS = 0;
 		expC = 0;
 		NEXTLEV = 5;
 		equipment = new Equipment<String, Obj>(4);
 	}
-	static public Character draw(Player p){
+	public static Character draw(){
 		Character newChar;
 		Random generator = new Random();
-		int charNum = 3; /// iloœæ charakterów
-		int ran = generator.nextInt(charNum )+1;
-		ran = 3;
-	///	System.out.println(ran);
+		int charNum = 3; 		// character quantity
+		int ran = generator.nextInt(charNum)+1;
+	//	ran = 2;
+	
 		switch (ran){
 			case 1 : newChar = new Warrior();
 			break;
@@ -59,17 +58,13 @@ public abstract class Character{
 		switch (toModify){
 			case "strength" : this.strength += i;
 				break;
-				
 			case "craft" : this.craft += i;
 				break;
-				
 			case "gold" : this.gold += i;
 				break;
-				
 			case "life" : this.life += i;
 				if (this.life < 1) this.die();
-				break;
-				
+				break;                    
 			case "expS" : this.expS += i;
 				if (expS > this.NEXTLEV){
 					int increase = expS / this.NEXTLEV;
@@ -77,7 +72,6 @@ public abstract class Character{
 					this.strength += increase;
 				}
 				break;
-				
 			case "expC" : this.expC += i;
 				if (expC > this.NEXTLEV){
 					int increase = expC / this.NEXTLEV;
@@ -93,9 +87,8 @@ public abstract class Character{
 		return this.life < 1;
 	}
 	public void die() {
-//		this.life = 0;
+		//	TODO left equipment handling 
 		IO.display("You die...");
-	//	PlayerList.killPlayer(this.player);
 	}
 	public void printCard() {
 		IO.display("<--- CHARACTER CARD --->");
@@ -113,37 +106,32 @@ public abstract class Character{
 		IO.display(equipment.printObj("Helmet"));
 		IO.display("<---------------------->");
 	}
-	//////////////////////////////////
 	public int rollOfDice(){
 		return (randGen.nextInt(5)+1);
 	}
 	public int move(boolean iL){
-		boolean ifLeft = iL;
+
 		int accPosition = this.position;
-		IO.display("position"+accPosition);
-		
 		int mapSize = MapHandler.getMapSize(this.map);
 		int roll = rollOfDice();
-		IO.display("roll"+roll);
-		if(ifLeft){
-			//accPosition -= roll;
-			if(accPosition - roll < 0) accPosition += mapSize-roll;
-			else accPosition -= roll;
+		
+		if(iL){
+			IO.display("You move on " + roll + " fields left.");
+			accPosition -= roll;
+			if(accPosition < 0) accPosition += mapSize;
+			
 		}else{
-			//accPosition += roll;
-			if(accPosition + roll > (mapSize - 1)) accPosition -= mapSize+roll;
-			else accPosition += roll;
+			IO.display("You move on " + roll + " fields right.");
+			accPosition += roll;
+			if(accPosition > (mapSize - 1)) accPosition -= mapSize;
 		}
+		
 		this.position = accPosition;
 		return this.position;
 	}
 	public void explore() {
-		
 		//	TODO handling other types of fields...
-		
-		int cardId = randGen.nextInt(CardHandler.getAdvCardAmount());
-		this.execute(cardId);
-			
+		this.execute(randGen.nextInt(CardHandler.getAdvCardAmount()));	
 	}
 	private void execute(int cardId) {
 		CardHandler.printCard(cardId);
@@ -159,22 +147,20 @@ public abstract class Character{
 			return;
 		}
 	}
-	private void eventCardHandle(int cardId) {
-	//	IO.display("Event" + CardHandler.getCardInfo("Special1", cardId));
-	//	IO.display(Integer.parseInt(CardHandler.getCardInfo("Special2", cardId)));
+	public void eventCardHandle(int cardId) {
 		this.modify(CardHandler.getCardInfo("Special1", cardId), Integer.parseInt(CardHandler.getCardInfo("Special2", cardId)));
 	}
 	private void enemyCardHandle(int cardId) {
-		IO.display("Enemy");
+		// TODO enemy fight avoidance abilities
 		this.fight(cardId);
 	}
 	protected void fight(int cardId){
 		
 		String enemyName = CardHandler.getCardInfo("advCardName", cardId);
-		String fightType = CardHandler.getCardInfo("Special1", cardId);
-
 		int enemyIndex = Integer.parseInt(CardHandler.getCardInfo("Special2", cardId));
+		String fightType = CardHandler.getCardInfo("Special1", cardId);
 		int characterIndex = 0;
+		
 		if(fightType.equals("strength"))			characterIndex = this.strength + this.equipment.strengthBoost("Weapon");
 		else if(fightType.equals("craft"))			characterIndex = this.craft + this.equipment.craftBoost("Weapon");
 		
@@ -204,7 +190,7 @@ public abstract class Character{
 			return;
 		}
 		
-		// strength fight - trying to avoid 1 point of life lose
+		// strength fight - trying to avoid life point lose
 		if(protectionAttempt("Armour")) return;
 		if(protectionAttempt("Shield")) return;
 		if(protectionAttempt("Helmet")) return;
@@ -226,9 +212,11 @@ public abstract class Character{
 		}return false;
 	}
 	protected int rollFight(String who, String fightType, int index) {
+		
 		IO.display(who + " " + fightType + " is " + index);
 		int roll = this.rollOfDice();
 		IO.display(who + " roll " + roll);
+		
 		int res = index + roll;
 		IO.display("It gives " + res);
 		return res;

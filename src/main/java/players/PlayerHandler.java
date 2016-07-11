@@ -34,10 +34,17 @@ public class PlayerHandler{
 		return playerList.isEmpty();
 	}
 	public static void cleanUp() {
-		Iterator<Player> itr = playerList.iterator();
-		while(itr.hasNext()){
-			if(itr.next().character.isDead()) itr.remove();;
+		Player toErase;
+		for(Player p : playerList){
+			if(p.character.isDead()){
+				toErase = p;
+			}
 		}
+	//	if(toErase)
+	//	Iterator<Player> itr = playerList.iterator();
+	//	while(itr.hasNext()){
+	//		if(itr.next().character.isDead()) itr.remove();;
+	//	}
 	}
 
 }
